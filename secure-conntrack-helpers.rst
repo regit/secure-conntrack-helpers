@@ -274,7 +274,7 @@ the network connected to $ETH1 and $ROUTED_VIA_ETH1 a network routed by this
 interface. With that setup, we can do antispoofing with the following rules ::
 
  iptables -A PREROUTING -t raw -i eth0 -s $NET_ETH1 -j DROP
- iptables -A PREROUTING -t raw -i eth0  -s $ROUTED_VIA_ETH1 -j DROP
+ iptables -A PREROUTING -t raw -i eth0 -s $ROUTED_VIA_ETH1 -j DROP
  iptables -A PREROUTING -t raw -i eth1 -s $NET_ETH1 -j ACCEPT
  iptables -A PREROUTING -t raw -i eth1 -s $ROUTED_VIA_ETH1 -j ACCEPT
  iptables -A PREROUTING -t raw -i eth1 -j DROP
