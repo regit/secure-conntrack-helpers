@@ -12,22 +12,20 @@ Principle of helpers
 Some protocols use different flows for signalling and data tranfers.  This is
 the case for FTP, SIP and H.323 among many others. In the setup stage, it is
 common that the the signalling flow is used to negotiate the configuration
-parameters for the establishment of the data flow,
-i.e. the IP address and port that
-are used to establish the data flow. These sort of protocols are particularly
-harder to filter by firewalls since they violate layering by introducing OSI
-layer 3/4 parameters in the OSI layer 7.
+parameters for the establishment of the data flow, i.e. the IP address and
+port that are used to establish the data flow. These sort of protocols are
+particularly harder to filter by firewalls since they violate layering by
+introducing OSI layer 3/4 parameters in the OSI layer 7.
 
 In order to overcome this situation in the iptables firewall, Netfilter
 provides the Connection Tracking helpers, which are modules that are able
 to assist the firewall in tracking these protocols.  These helpers create
 the so-called expectations, as defined by the Netfilter project jargon.
-An expectation is similar to a connection tracking entry, but it is stored in
-a separate table and generally with a limited duration.
-Expectations are used to
-signal the kernel that in the coming seconds, if a packet with corresponding
-parameters reaches the firewall, then this packet is RELATED to the previous
-connection.
+An expectation is similar to a connection tracking entry, but it is stored
+in a separate table and generally with a limited duration.  Expectations
+are used to signal the kernel that in the coming seconds, if a packet with
+corresponding parameters reaches the firewall, then this packet is RELATED
+to the previous connection.
 
 These kind of packets can then be authorized thanks to modules like state or
 conntrack which can match RELATED packets.
