@@ -47,30 +47,30 @@ the IP address of the person who is the target of the DCC.
 
 The degree of freedom due to connection tracking helpers are thus dependent on
 the nature of the protocol. Some protocols have dangerous extensions, and these
-are disabled by defaut by Netfilter. Under these dangerous conditions, we put
-protocol features which lead to have the user to choose some parameters.
-For example, the FTP protocol can let the user choose to have the target server
-connect to another arbitrary server. This could lead to a hole in the
-DMZ and it
-is thus deactivated by default.
+are disabled by defaut by Netfilter. The user has to pass an option during
+loading of the module to enable this dangerous protocol features. For example,
+the FTP protocol can let the user choose to have the target server connect to
+another arbitrary server. This could lead to a hole in the DMZ and it is thus
+deactivated by default. To enable it, you've got to pass the `loose` option
+with the `1` value.
 
 The following list describes the different connection tracking helper
-modules and their associated degree of freedom.
+modules and their associated degree of freedom:
 
 ==============  ==============  ===========  ===================  ================  ========  ===================================
 Module          Source address  Source Port  Destination address  Destination port  Protocol  Option
 --------------  --------------  -----------  -------------------  ----------------  --------  -----------------------------------
 amanda          Fixed           0-65535      Fixed                In CMD            TCP 
-ftp             Fixed           0-65535      In CMD               In CMD            TCP       loose = 1 (default)
-ftp             Full            0-65535      In CMD               In CMD            TCP       loose = 0
+ftp             Fixed           0-65535      In CMD               In CMD            TCP       loose = 0 (default)
+ftp             Full            0-65535      In CMD               In CMD            TCP       loose = 1
 h323            Fixed           0-65535      Fixed                In CMD            UDP 
 h323 q931       Fixed           0-65535      In CMD               In CMD            UDP 
 irc             Full            0-65535      Fixed                In CMD            TCP 
 netbios_ns      Iface Network   Fixed        Fixed                Fixed             UDP 
 pptp            Fixed           In CMD       Fixed                In CMD            GRE 
 sane            Fixed           0-65535      Fixed                In CMD            TCP 
-sip rtp_rtcp    Fixed           0-65535      Fixed                In CMD            UDP       sid_direct_media = 1 (default)
-sip rtp_rtcp    Full            0-65535      In CMD               In CMD            UDP       sid_direct_media = 0
+sip rtp_rtcp    Fixed           0-65535      Fixed                In CMD            UDP       sip_direct_media = 1 (default)
+sip rtp_rtcp    Full            0-65535      In CMD               In CMD            UDP       sip_direct_media = 0
 sip signalling  Fixed           0-65535      Fixed                In CMD            In CMD    sip_direct_signalling = 1 (default)
 sip signalling  Full            0-65535      In CMD               In CMD            In CMD    sip_direct_signalling = 0
 tftp            Fixed           0-65535      Fixed                In Packet         UDP 
@@ -259,8 +259,8 @@ The documentation at the time of the writing is reproduced here ::
     enable it in startup scripts.
 
 There is at the time of the writing no routing-based implementation of
-`rp_filter` in the Linux kernel. Manual antispoofing via Netfilter rules
-is thus needed.
+`rp_filter` in the Linux kernel for IPv6. Manual antispoofing via Netfilter
+rules is thus needed.
 
 Manual anti-spoofing
 --------------------
