@@ -9,9 +9,9 @@ Introduction
 Principle of helpers
 --------------------
 
-Some protocols use different flows for signalling and data tranfers.  This is
+Some protocols use different flows for signaling and data tranfers.  This is
 the case for FTP, SIP and H.323 among many others. In the setup stage, it is
-common that the the signalling flow is used to negotiate the configuration
+common that the the signaling flow is used to negotiate the configuration
 parameters for the establishment of the data flow, i.e. the IP address and
 port that are used to establish the data flow. These sort of protocols are
 particularly harder to filter by firewalls since they violate layering by
@@ -45,7 +45,7 @@ the IP address of the person who is the target of the DCC.
 
 The degree of freedom due to connection tracking helpers are thus dependent on
 the nature of the protocol. Some protocols have dangerous extensions, and these
-are disabled by defaut by Netfilter. The user has to pass an option during
+are disabled by default by Netfilter. The user has to pass an option during
 loading of the module to enable this dangerous protocol features. For example,
 the FTP protocol can let the user choose to have the target server connect to
 another arbitrary server. This could lead to a hole in the DMZ and it is thus
@@ -85,7 +85,7 @@ extended but dangerous features of some protocols.
 Secure use of Connection Tracking Helpers
 =========================================
 
-Following the preceeding remarks, it appears that it is necessary to not
+Following the preceding remarks, it appears that it is necessary to not
 blindly use helpers. You must take into account the topology of your network
 when setting parameters linked to a helper.
 
@@ -138,12 +138,12 @@ The issue is the same as the one described for SIP, you should limit the
 opening of the RELATED connection to the RTP server addresses of your VOIP
 provider.
 
-Securing the signalling flow
+Securing the signaling flow
 ----------------------------
 
 You will also need to build carefully crafted rules for the authorization
 of flows involving connection tracking helpers. In particular, you have
-to do a strict antispoofing (has described below) to avoid traffic injection
+to do a strict anti-spoofing (has described below) to avoid traffic injection
 from other interfaces.
 
 
@@ -157,9 +157,9 @@ One classic problem with helpers is the fact that helpers listen on
 predefined ports.  If a service does not run on standard port, it is
 necessary to declare it. Before 2.6.34, the only method to do so was
 to use a module option. This was resulting in having a systematic
-parsing of the added port by the choosen helper. This was clearly
+parsing of the added port by the chosen helper. This was clearly
 suboptimal and the CT target has been introduced in 2.6.34. It allows
-to specify what helper to use for a specific flow.  For exemple, let's
+to specify what helper to use for a specific flow.  For example, let's
 say we have a FTP server at IP address 1.2.3.4 running on port 2121.
 
 To declare it, we can simply do ::
@@ -184,7 +184,7 @@ Each wanted helper use is then set by using a call to the CT target.
 Method
 ~~~~~~
 
-It is possible to obtain this behaviour for most connection tracking helper
+It is possible to obtain this behavior for most connection tracking helper
 modules by setting the port number to 0 for the module. For example ::
 
  modprobe nf_conntrack_$PROTO ports=0
@@ -198,7 +198,7 @@ this:
  - sip
  - tftp
 
-Some modules will not work due to the abscence of ports parameter:
+Some modules will not work due to the absence of ports parameter:
 
  - amanda
  - h323
@@ -209,8 +209,8 @@ Some modules will not work due to the abscence of ports parameter:
 
 Antispoofing
 ============
-Helpers and antispoofing
-------------------------
+Helpers and anti-spoofing
+-------------------------
 
 Helper lays on the parsing of data that come from client or from server. It
 is thus important to limit spoofing attacks that could be used to feed the
@@ -257,24 +257,24 @@ The documentation at the time of the writing is reproduced here ::
     enable it in startup scripts.
 
 There is at the time of the writing no routing-based implementation of
-`rp_filter` in the Linux kernel for IPv6. Manual antispoofing via Netfilter
+`rp_filter` in the Linux kernel for IPv6. Manual anti-spoofing via Netfilter
 rules is thus needed.
 
 Manual anti-spoofing
 --------------------
 
 The best way to do anti-spoofing is to use filtering rules in the RAW table.
-This has the great advantage of shortcutting the connection tracking. This
+This has the great advantage of short cutting the connection tracking. This
 helps to reduce the load that could be created by some flooding.
 
-The antispoofing must be done on a per-interface basis. For each interface,
+The anti-spoofing must be done on a per-interface basis. For each interface,
 we must list the authorized network on the interface. There is an exception,
 which is the interface with the default route where an inverted logic must
 be used. In our example, let's take eth1, which is a LAN interface, and have
 eth0 being the interface with the default route.
 Let's also have $NET_ETH1 being
 the network connected to $ETH1 and $ROUTED_VIA_ETH1 a network routed by this
-interface. With this setup, we can do antispoofing with the following rules ::
+interface. With this setup, we can do anti-spoofing with the following rules ::
 
  iptables -A PREROUTING -t raw -i eth0 -s $NET_ETH1 -j DROP
  iptables -A PREROUTING -t raw -i eth0 -s $ROUTED_VIA_ETH1 -j DROP
