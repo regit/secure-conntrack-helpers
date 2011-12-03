@@ -9,7 +9,7 @@ Introduction
 Principle of helpers
 --------------------
 
-Some protocols use different flows for signaling and data tranfers.  This is
+Some protocols use different flows for signaling and data transfers.  This is
 the case for FTP, SIP and H.323 among many others. In the setup stage, it is
 common that the signaling flow is used to negotiate the configuration
 parameters for the establishment of the data flow, i.e. the IP address and
@@ -167,7 +167,7 @@ To declare it, we can simply do ::
  iptables -A PREROUTING -t raw -p tcp --dport 2121 \
  	-d 1.2.3.4 -j CT --helper ftp
 
-We thus recommand NOT to use module options anymore, and use the CT target
+We thus recommend NOT to use module options anymore, and use the CT target
 instead.
 
 Disable helper by default
