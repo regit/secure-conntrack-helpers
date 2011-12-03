@@ -143,7 +143,7 @@ Securing the signaling flow
 
 You will also need to build carefully crafted rules for the authorization
 of flows involving connection tracking helpers. In particular, you have
-to do a strict anti-spoofing (has described below) to avoid traffic injection
+to do a strict anti-spoofing (as described below) to avoid traffic injection
 from other interfaces.
 
 
@@ -163,7 +163,7 @@ to specify what helper to use for a specific flow.  For example, let's
 say we have a FTP server at IP address 1.2.3.4 running on port 2121.
 
 To declare it, we can simply do ::
- 
+
  iptables -A PREROUTING -t raw -p tcp --dport 2121 \
  	-d 1.2.3.4 -j CT --helper ftp
 
@@ -185,7 +185,7 @@ Method
 ~~~~~~
 
 It is possible to obtain this behavior for most connection tracking helper
-modules by setting the port number to 0 for the module. For example ::
+modules by setting the port number for the module to 0. For example ::
 
  modprobe nf_conntrack_$PROTO ports=0
 
@@ -220,17 +220,17 @@ Antispoofing
 Helpers and anti-spoofing
 -------------------------
 
-Helper lays on the parsing of data that come from client or from server. It
-is thus important to limit spoofing attacks that could be used to feed the
-helpers with forged data. Helpers are IP only and are not doing, as the
-rest of the connection tracking, any coherence check on the network
+Helpers rely on the parsing of data that come from client or from server.
+Therefore, it is important to limit spoofing attacks that could be used to
+feed the helpers with forged data. Helpers are IP only and are not doing, as
+the rest of the connection tracking, any coherence check on the network
 architecture.
 
 Using rp_filter
 ---------------
 
-Linux provides a routing based implementation of reverse path filtering.
-This is available for IPv4.  To activate it, you need to ensure that the
+Linux provides a routing-based implementation of reverse path filtering.
+This is available for IPv4.  To activate it, you need to ensure that
 `/proc/sys/net/ipv4/conf/*/rp_filter` files contain 1.  The complete
 documentation about `rp_filter` is available in the file `ip-sysctl.txt`
 in the `Documentation/networking/` directory of the Linux tree.
@@ -264,7 +264,7 @@ The documentation at the time of the writing is reproduced here ::
     Default value is 0. Note that some distributions
     enable it in startup scripts.
 
-There is at the time of the writing no routing-based implementation of
+At the time of the writing there is no routing-based implementation of
 `rp_filter` in the Linux kernel for IPv6. Manual anti-spoofing via Netfilter
 rules is thus needed.
 
@@ -272,11 +272,11 @@ Manual anti-spoofing
 --------------------
 
 The best way to do anti-spoofing is to use filtering rules in the RAW table.
-This has the great advantage of short cutting the connection tracking. This
+This has the great advantage of bypassing the connection tracking. This
 helps to reduce the load that could be created by some flooding.
 
 The anti-spoofing must be done on a per-interface basis. For each interface,
-we must list the authorized network on the interface. There is an exception,
+we must list the authorized network on the interface. There is exception,
 which is the interface with the default route where an inverted logic must
 be used. In our example, let's take eth1, which is a LAN interface, and have
 eth0 being the interface with the default route.
