@@ -11,7 +11,7 @@ Principle of helpers
 
 Some protocols use different flows for signaling and data tranfers.  This is
 the case for FTP, SIP and H.323 among many others. In the setup stage, it is
-common that the the signaling flow is used to negotiate the configuration
+common that the signaling flow is used to negotiate the configuration
 parameters for the establishment of the data flow, i.e. the IP address and
 port that are used to establish the data flow. These sort of protocols are
 particularly harder to filter by firewalls since they violate layering by
