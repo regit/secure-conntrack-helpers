@@ -30,9 +30,9 @@ to the previous connection.
 These kind of packets can then be authorized thanks to modules like state or
 conntrack which can match RELATED packets.
 
-This system lays on parsing of data coming or from the user or from the server.
-It is thus subject to attack and this is necessary to take some protections
-when using connection tracking helpers.
+This system relies on parsing of data coming either from the user or the server.
+It is therefore vulnerable to attack and great care must be taken when using
+connection tracking helpers.
 
 Connection Tracking helpers default configuration
 -------------------------------------------------
@@ -79,7 +79,7 @@ The following keywords are used:
  - Fixed: Value of a connection tracking attribute is used. This is not a candidate for forgery.
  - In CMD: Value is fetched from the payload. This is a candidate for forgery.
 
-The options are module loading options. They permit to activate the
+The options are module loading options. They permit activation of the
 extended but dangerous features of some protocols.
 
 Secure use of Connection Tracking Helpers
@@ -89,10 +89,11 @@ Following the preceding remarks, it appears that it is necessary to not
 blindly use helpers. You must take into account the topology of your network
 when setting parameters linked to a helper.
 
-For each helper, you must carefully open the RELATED flow. All iptables lines
+For each helper, you must carefully open the RELATED flow. All iptables statement 
 using "-m state --state RELATED" should be used in conjunction with the
-choice of a helper.  Doing that, you will be able to describe how the helper
-must be used with respect to your network and information system architecture.
+choice of a helper and of IP parameters.  Doing that, you will be able to describe
+how the helper must be used with respect to your network and information system
+architecture.
 
 Example: FTP helper
 -------------------
@@ -160,15 +161,15 @@ to use a module option. This was resulting in having a systematic
 parsing of the added port by the chosen helper. This was clearly
 suboptimal and the CT target has been introduced in 2.6.34. It allows
 to specify what helper to use for a specific flow.  For example, let's
-say we have a FTP server at IP address 1.2.3.4 running on port 2121.
+say we have a FTP server on IP address 1.2.3.4 running on port 2121.
 
 To declare it, we can simply do ::
 
  iptables -A PREROUTING -t raw -p tcp --dport 2121 \
  	-d 1.2.3.4 -j CT --helper ftp
 
-We thus recommend NOT to use module options anymore, and use the CT target
-instead.
+Therefore, the use of the module options is NOT recommended anymore -
+please use the CT target instead.
 
 Disable helper by default
 -------------------------
@@ -179,7 +180,7 @@ Once a helper is loaded, it will treat packets for a given port and all IP
 addresses.
 As explained before, this is not optimal and is even a security risk. A better
 solution is to load the module helper and deactivate their parsing by default.
-Each wanted helper use is then set by using a call to the CT target.
+Each helper we need to use is then set by using a call to the CT target.
 
 Method
 ~~~~~~
