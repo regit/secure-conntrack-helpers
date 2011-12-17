@@ -89,7 +89,7 @@ Following the preceding remarks, it appears that it is necessary to not
 blindly use helpers. You must take into account the topology of your network
 when setting parameters linked to a helper.
 
-For each helper, you must carefully open the RELATED flow. All iptables statement 
+For each helper, you must carefully open the RELATED flow. All iptables statements
 using "-m conntrack --ctstate RELATED" should be used in conjunction with the
 choice of a helper and of IP parameters. By doing that, you will be able to describe
 how the helper must be used with respect to your network and information system
@@ -277,7 +277,7 @@ This has the great advantage of bypassing the connection tracking. This
 helps to reduce the load that could be created by some flooding.
 
 Anti-spoofing must be done on a per-interface basis. For each interface,
-we must list the authorized network on the interface. There is exception,
+we must list the authorized network on the interface. There is an exception,
 which is the interface with the default route where an inverted logic must
 be used. In our example, let's take eth1, which is a LAN interface, and have
 eth0 being the interface with the default route.
