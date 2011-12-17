@@ -190,8 +190,8 @@ modules by setting the port number for the module to 0. For example ::
 
  modprobe nf_conntrack_$PROTO ports=0
 
-The following modules will be deactivated on all flows by default by doing
-this:
+By doing this, the following modules will be deactivated on all flows
+by default:
 
  - ftp
  - irc
@@ -199,7 +199,7 @@ this:
  - sip
  - tftp
 
-Some modules will not work due to the absence of ports parameter:
+Due to the absence of a "ports" parameter, some modules will not work:
 
  - amanda
  - h323
