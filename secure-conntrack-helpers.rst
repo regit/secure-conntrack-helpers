@@ -43,12 +43,12 @@ IRC helper creates expectations whose destination address is the client address
 and source address is any address. This is due to the protocol: we do not know
 the IP address of the person who is the target of the DCC.
 
-The degree of freedom due to connection tracking helpers are thus dependent on
+The degree of freedom due to connection tracking helpers are therefore dependent on
 the nature of the protocol. Some protocols have dangerous extensions, and these
 are disabled by default by Netfilter. The user has to pass an option during
 loading of the module to enable this dangerous protocol features. For example,
 the FTP protocol can let the user choose to have the target server connect to
-another arbitrary server. This could lead to a hole in the DMZ and it is thus
+another arbitrary server. This could lead to a hole in the DMZ and it is therefore
 deactivated by default. To enable it, you've got to pass the `loose` option
 with the `1` value.
 
@@ -91,7 +91,7 @@ when setting parameters linked to a helper.
 
 For each helper, you must carefully open the RELATED flow. All iptables statement 
 using "-m conntrack --ctstate RELATED" should be used in conjunction with the
-choice of a helper and of IP parameters.  Doing that, you will be able to describe
+choice of a helper and of IP parameters. By doing that, you will be able to describe
 how the helper must be used with respect to your network and information system
 architecture.
 
@@ -144,7 +144,7 @@ Securing the signaling flow
 
 You will also need to build carefully crafted rules for the authorization
 of flows involving connection tracking helpers. In particular, you have
-to do a strict anti-spoofing (as described below) to avoid traffic injection
+to do strict anti-spoofing (as described below) to avoid traffic injection
 from other interfaces.
 
 
