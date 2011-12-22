@@ -266,14 +266,14 @@ The documentation at the time of the writing is reproduced here ::
     enable it in startup scripts.
 
 At the time of the writing, there is no routing-based implementation of
-`rp_filter` in the Linux kernel for IPv6. Manual anti-spoofing via Netfilter
-rules is thus needed.
+`rp_filter` in the Linux kernel for IPv6, therefore manual anti-spoofing via
+Netfilter rules is thus needed.
 
 Manual anti-spoofing
 --------------------
 
 The best way to do anti-spoofing is to use filtering rules in the RAW table.
-This has the great advantage of bypassing the connection tracking. This
+This has the great advantage of bypassing the connection tracking and
 helps to reduce the load that could be created by some flooding.
 
 Anti-spoofing must be done on a per-interface basis. For each interface,
