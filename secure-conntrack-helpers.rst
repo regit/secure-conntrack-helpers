@@ -2,7 +2,7 @@
 Secure use of iptables and connection tracking helpers
 ======================================================
 
-Authors: Eric Leblond, Pablo Neira Ayuso, Patrick McHardy, Jan Engelhardt
+Authors: Eric Leblond, Pablo Neira Ayuso, Patrick McHardy, Jan Engelhardt, Mr Dash Four
 
 Introduction
 ============
