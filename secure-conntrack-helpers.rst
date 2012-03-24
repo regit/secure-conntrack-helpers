@@ -227,6 +227,17 @@ feed the helpers with forged data. Helpers are IP only and are not doing, as
 the rest of the connection tracking, any coherence check on the network
 architecture.
 
+Using Netfilter's rpfilter
+--------------------------
+
+A rpfilter Netfilter module is available since Linux 3.3 and iptables 1.4.13.
+It provides a convenient match that can be used to detect invalid packets.
+To use it on IPv6 and IPv4, one can for example use ::
+
+ iptables -A PREROUTING -t raw -m rpfilter --invert -j DROP
+ ip6tables -A PREROUTING -t raw -m rpfilter --invert -j DROP
+
+
 Using rp_filter
 ---------------
 
@@ -268,6 +279,7 @@ The documentation at the time of the writing is reproduced here ::
 At the time of the writing, there is no routing-based implementation of
 `rp_filter` in the Linux kernel for IPv6, therefore manual anti-spoofing via
 Netfilter rules is thus needed.
+
 
 Manual anti-spoofing
 --------------------
