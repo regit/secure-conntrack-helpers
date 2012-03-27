@@ -227,8 +227,8 @@ feed the helpers with forged data. Helpers are IP only and are not doing, as
 the rest of the connection tracking, any coherence check on the network
 architecture.
 
-Using Netfilter's rpfilter
---------------------------
+Using rpfilter module
+---------------------
 
 A rpfilter Netfilter module is available since Linux 3.3 and iptables 1.4.13.
 It provides a convenient match that can be used to detect invalid packets.
