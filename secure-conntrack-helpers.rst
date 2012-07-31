@@ -185,7 +185,19 @@ Each helper we need to use is then set by using a call to the CT target.
 Method
 ~~~~~~
 
-It is possible to obtain this behavior for most connection tracking helper
+Since Linux 3.5, it is possible to desactivate the automatic conntrack helper
+assignment. This can be done when loading the nf_conntrack module ::
+
+ modprobe nf_conntrack nf_conntrack_helper=0
+
+This can also be done after the module is loading by using a /proc entry ::
+
+ echo 0 > /proc/sys/net/netfilter/nf_conntrack_helper
+
+Please note that flows that already got a helper will keep using it even
+if automatic helper assignment has been disabled.
+
+For older kernel, it is possible to obtain this behavior for most connection tracking helper
 modules by setting the port number for the module to 0. For example ::
 
  modprobe nf_conntrack_$PROTO ports=0
