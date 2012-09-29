@@ -219,9 +219,10 @@ Due to the absence of a "ports" parameter, some modules will not work:
  - pptp
  - snmp
 
-Please note, this will cause a renaming of the conntrack helper which will
-be named $PROTO-0. The CT rules must then be updated to reflect this change.
-For example, if the option has been used for the ftp helper, one should use ::
+Please note that if you are using the ports=0 solution, this will cause a
+renaming of the conntrack helper which will be named $PROTO-0. The CT rules
+must then be updated to reflect this change. For example, if the option has
+been used for the ftp helper, one should use ::
 
  iptables -A PREROUTING -t raw -p tcp --dport 21 \
  	-d 2.3.4.5 -j CT --helper ftp-0
